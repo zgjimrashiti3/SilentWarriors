@@ -33,6 +33,15 @@
 
         
     }
+    .avatar {
+  width: 120px;         /* madhësia e shfaqjes */
+  height: 120px;        
+  border-radius: 50%;   /* e bën rreth */
+  object-fit: cover;    /* crop, jo stretch */
+  object-position: center; /* fokus te qendra */
+}
+
+
 
     /* Home */
     #home {
