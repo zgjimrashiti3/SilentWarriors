@@ -7,6 +7,20 @@
     <link rel="stylesheet" href="assets/style.css">
     <link rel="icon" href="assets/img/22864.gif" type="image/png">
 
+    <style>
+      .flags-section { padding: 60px 0; }
+      .flags-section .container { max-width: 1100px; margin: 0 auto; padding: 0 16px; }
+      .flags-title { text-align: center; font-size: 2rem; margin-bottom: 10px; }
+      .flags-subtitle { text-align: center; opacity: .8; margin-bottom: 28px; }
+
+      /* Flag wall layout */
+      .flag-wall { display: flex; flex-wrap: wrap; gap: 14px; justify-content: center; margin-top: 20px; }
+      .flag-wall img { width: 42px; height: 28px; object-fit: cover; border-radius: 4px; box-shadow: 0 0 4px rgba(0,0,0,0.4); }
+
+      @media (max-width: 600px) {
+        .flag-wall img { width: 32px; height: 22px; }
+      }
+    </style>
 </head>
 <body>
 
@@ -23,6 +37,7 @@
                     <li><a href="#home">Home</a></li>
                     <li><a href="#about">About</a></li>
                     <li><a href="#members">Members</a></li>
+                    <li><a href="#countries">Countries</a></li>
                     <li><a href="#media">Media</a></li>
                     <li><a href="#contact">Contact</a></li>
                 </ul>
@@ -55,7 +70,6 @@
     <div class="members-wrapper">
         <div class="members-grid">
 
-            <!-- Member 5 -->
             <div class="member-card">
                 <img src="assets/img/arbrim.jpg" alt="[SW]IceBreaker">
                 <h3>[SW]Arbrim97</h3>
@@ -67,57 +81,168 @@
                 <h3>[SW]SilentWarrior</h3>
                 <p>disciplined, relentless, and hungry for face-off.</p>
             </div>
-            <!-- Member 4 -->
+
             <div class="member-card">
                 <img src="assets/img/rrezon.jpg" alt="[SW]CrimsonFlame">
                 <h3>[SW]PabloEscobar</h3>
                 <p>Burns through defenses with calculated moves.</p>
             </div>
 
-                <div class="member-card">
-                <img src="assets/img/zgjim4.jpg" alt="[SW]ShooterXK" alt="foto" class="avatar">
+            <div class="member-card">
+                <img src="assets/img/zgjim4.jpg" alt="[SW]ShooterXK" class="avatar">
                 <h3>[SW]ShooterXk</h3>
                 <p>eager for swift and relentless attacks.</p>
             </div>
-            <!-- Member 1 -->
+
             <div class="member-card">
                 <img src="assets/img/lisi.jpg" alt="[SW]SilentLisi">
                 <h3>[SW]SilentLisi</h3>
                 <p>Calm and focused, always ready when it matters most.</p>
             </div>
 
-            <!-- Member 2 -->
             <div class="member-card">
                 <img src="assets/img/bardhi.jpg" alt="[SW]ThunderEagle" class="avatar">
                 <h3>[SW]ThunderEagle</h3>
                 <p>Careful with every move and smart with every resource.</p>
             </div>
-            
-            <!-- Member 6 -->
-            <!-- <div class="member-card">
-                <img src="assets/img/sw4.png" alt="[SW]EagleEye">
-                <h3>[SW]EagleEye</h3>
-                <p>Lorem ipsum dolor sit amet consectetur.</p>
-            </div> -->
-
-            <!-- Member 7 -->
-            <!-- <div class="member-card">
-                <img src="assets/img/sw4.png" alt="[SW]NightWolf">  
-                <h3>[SW]NightWolf</h3>
-                <p>Lorem ipsum dolor sit amet.</p>
-            </div> -->
-
-            <!-- Member 8 -->
-            <!-- <div class="member-card">
-                <img src="assets/img/sw4.png" alt="[SW]StormCaller">
-                <h3>[SW]StormCaller</h3>
-                <p>Lorem ipsum dolor sit amet consectetur.</p>
-            </div> -->
-
 
         </div>
     </div>
 </section>
+
+<!-- NEW: Countries / Flags Section (dynamic with tooltips + CDN flags) -->
+<section id="countries" class="section flags-section" aria-labelledby="flags-heading">
+  <div class="container">
+    <h2 id="flags-heading" class="flags-title">Where We’re From</h2>
+    <p class="flags-subtitle">Hover or tap a flag to see members. Filter to show current players or alumni.</p>
+
+    <!-- Filters -->
+    <div class="flag-filters" style="display:flex; gap:8px; justify-content:center; margin-bottom:18px;">
+      <button class="flag-filter-btn" data-filter="all">All</button>
+      <button class="flag-filter-btn" data-filter="current">Current</button>
+      <button class="flag-filter-btn" data-filter="alumni">Alumni</button>
+    </div>
+
+    <!-- Cards grid -->
+    <div id="flag-grid" class="flag-grid" role="list"></div>
+
+    <noscript>
+      <p style="text-align:center">Enable JavaScript to see the interactive country list.</p>
+    </noscript>
+  </div>
+</section>
+
+<style>
+  .flag-grid { display:grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap:14px; }
+  .flag-card { position:relative; background: rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.12); border-radius:16px; padding:12px 14px; display:flex; align-items:center; gap:12px; }
+  .flag-images { display:flex; align-items:center; gap:6px; }
+  .flag-img { width:36px; height:24px; border-radius:4px; box-shadow:0 0 4px rgba(0,0,0,.35); object-fit:cover; }
+  .flag-meta { display:flex; flex-direction:column; }
+  .flag-title { font-weight:700; font-size:1rem; line-height:1.1; }
+  .flag-badges { display:flex; gap:6px; align-items:center; margin-top:2px; }
+  .flag-badge { font-size:.7rem; padding:2px 6px; border-radius:999px; border:1px solid rgba(255,255,255,.16); opacity:.9; }
+  .flag-badge.count { font-weight:700; }
+  .flag-badge.current { background: rgba(56, 189, 248, .15); } /* cyan-ish */
+  .flag-badge.alumni { background: rgba(250, 204, 21, .15); } /* amber-ish */
+
+  /* Tooltip */
+  .flag-card .tooltip { position:absolute; left:12px; right:12px; bottom:calc(100% + 8px); background: rgba(0,0,0,.9); color:#fff; border:1px solid rgba(255,255,255,.15); border-radius:10px; padding:10px 12px; font-size:.86rem; line-height:1.25; box-shadow:0 8px 24px rgba(0,0,0,.35); opacity:0; pointer-events:none; transform:translateY(6px); transition:opacity .15s ease, transform .15s ease; }
+  .flag-card:hover .tooltip, .flag-card:focus-within .tooltip { opacity:1; transform:translateY(0); }
+  .tooltip strong { display:block; margin-bottom:4px; font-size:.9rem; }
+  .flag-filter-btn { padding:6px 12px; border-radius:999px; border:1px solid rgba(255,255,255,.2); background:transparent; color:inherit; cursor:pointer; }
+  .flag-filter-btn.active { background: rgba(255,255,255,.12); }
+</style>
+
+<script>
+  // Data model for countries and members
+  // type: "single" uses one flag code; type: "combo" can render two flags side-by-side
+  const COUNTRY_DATA = [
+    { type: 'combo', name: 'Albania / Kosovo', flags: ['al','xk'], status: 'current', members: ['TheDarkAngle','Arbrim','SemiShaman','-mili','Kozic','Sherif','AlphaEnemy','Zgjimi'] },
+    { type: 'single', name: 'England', flag: 'gb-eng', status: 'current', members: ['Bella','Jamie-','Viney','xSurvival_shamanx'] },
+    { type: 'single', name: 'Netherlands', flag: 'nl', status: 'current', members: ['Dominant','JonSnow','Sharp'] },
+    { type: 'single', name: 'Germany', flag: 'de', status: 'current', members: ['Babo','Remote'] },
+    { type: 'single', name: 'Portugal', flag: 'pt', status: 'current', members: ['Lekas','-Shockwave-'] },
+    { type: 'single', name: 'United States of America', flag: 'us', status: 'current', members: ['IYaoi-Wear','SoulTaker'] },
+    { type: 'single', name: 'Austria', flag: 'at', status: 'current', members: ['Bianca'] },
+    { type: 'single', name: 'Brazil', flag: 'br', status: 'current', members: ['Diablo'] },
+    { type: 'single', name: 'France', flag: 'fr', status: 'current', members: ['SylvesterStalone'] },
+
+    // Alumni (were on SW)
+    { type: 'single', name: 'Pakistan', flag: 'pk', status: 'alumni', members: ['Shahzad'] },
+    { type: 'single', name: 'India', flag: 'in', status: 'alumni', members: ['BigBang','Abigail','Evolution','Sinisters'] },
+    { type: 'single', name: 'Jordan', flag: 'jo', status: 'alumni', members: ['Samer-','RoyalPain'] },
+    { type: 'single', name: 'Mexico', flag: 'mx', status: 'alumni', members: ['Fonsi'] },
+    { type: 'single', name: 'Italy', flag: 'it', status: 'alumni', members: ['Pain','MixJumpen'] },
+    { type: 'single', name: 'Germany', flag: 'de', status: 'alumni', members: ['Eric_Mal'] },
+    { type: 'single', name: 'Denmark', flag: 'dk', status: 'alumni', members: ['Rousfv'] },
+  ];
+
+  const CDN_PNG = (code, size=40) => `https://flagcdn.com/w${size}/${code}.png`;
+
+  function makeTooltipHTML(name, members) {
+    const count = members.length;
+    const list = members.join(', ');
+    return `<div class="tooltip" role="tooltip"><strong>${name} — ${count} member${count!==1?'s':''}</strong>${list}</div>`;
+  }
+
+  function renderFlags(filter='all') {
+    const grid = document.getElementById('flag-grid');
+    grid.innerHTML = '';
+
+    COUNTRY_DATA.filter(c => filter==='all' ? true : c.status===filter)
+      .forEach(c => {
+        const card = document.createElement('div');
+        card.className = 'flag-card';
+        card.setAttribute('role','listitem');
+        card.setAttribute('tabindex','0');
+        card.setAttribute('aria-label', `${c.name} (${c.status})`);
+
+        const imgWrap = document.createElement('div');
+        imgWrap.className = 'flag-images';
+        if (c.type === 'combo') {
+          c.flags.forEach(code => {
+            const img = document.createElement('img');
+            img.src = CDN_PNG(code);
+            img.alt = code.toUpperCase();
+            img.className = 'flag-img';
+            imgWrap.appendChild(img);
+          });
+        } else {
+          const img = document.createElement('img');
+          img.src = CDN_PNG(c.flag);
+          img.alt = c.name;
+          img.className = 'flag-img';
+          imgWrap.appendChild(img);
+        }
+
+        const meta = document.createElement('div');
+        meta.className = 'flag-meta';
+        meta.innerHTML = `
+          <div class="flag-title">${c.name}</div>
+          <div class="flag-badges">
+            <span class="flag-badge count">${c.members.length}</span>
+            <span class="flag-badge ${c.status}">${c.status}</span>
+          </div>
+        `;
+
+        card.appendChild(imgWrap);
+        card.appendChild(meta);
+        card.insertAdjacentHTML('beforeend', makeTooltipHTML(c.name, c.members));
+        grid.appendChild(card);
+      });
+
+    // update active button
+    document.querySelectorAll('.flag-filter-btn').forEach(btn => {
+      btn.classList.toggle('active', btn.dataset.filter === filter);
+    });
+  }
+
+  // Init
+  renderFlags('all');
+  document.querySelectorAll('.flag-filter-btn').forEach(btn => {
+    btn.addEventListener('click', () => renderFlags(btn.dataset.filter));
+  });
+</script>
 
 <!-- Section media -->
 <section id="media" class="section media">
@@ -129,14 +254,9 @@
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                 referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
         </iframe>
-        <!-- <p class="game-info">
-            Map: Yggdrasil | Game Stats:
-            <a href="https://www.popre.net/game.php?id=473437" target="_blank" class="game-link">Click here</a>
-        </p> -->
     </div>
 </section>
 
-    
     <section id="contact" class="section contact">
         <h2>Visit Us</h2>
         <p>Find us on social media to stay updated and join the Silent Warriors community!</p>
@@ -151,9 +271,7 @@
             </a>
         </div>
     </section>
-    
 
-    <!-- Footer -->
     <footer>
         <p>&copy; 2025 Developed with ❤️ by <a href="https://valezo.net/" style="color: red">Valezo,</a> All rights reserved by Silent Warriors</p>
     </footer>
