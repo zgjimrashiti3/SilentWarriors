@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="sq">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,6 +8,11 @@
     <link rel="icon" href="assets/img/22864.gif" type="image/png">
 
     <style>
+      html { scroll-behavior: smooth; }
+      :target { scroll-margin-top: 72px; }  /* adjust for your fixed header height */
+      .site-header { position: sticky; top: 0; height: 72px; }
+      .section { min-height: 100vh; padding: 2rem; }
+
       .flags-section { padding: 60px 0; }
       .flags-section .container { max-width: 1100px; margin: 0 auto; padding: 0 16px; }
       .flags-title { text-align: center; font-size: 2rem; margin-bottom: 10px; }
@@ -37,7 +42,6 @@
                     <li><a href="#home">Home</a></li>
                     <li><a href="#about">About</a></li>
                     <li><a href="#members">Members</a></li>
-                    <li><a href="#countries">Countries</a></li>
                     <li><a href="#media">Media</a></li>
                     <li><a href="#contact">Contact</a></li>
                 </ul>
@@ -157,24 +161,29 @@
   // Data model for countries and members
   // type: "single" uses one flag code; type: "combo" can render two flags side-by-side
   const COUNTRY_DATA = [
-    { type: 'combo', name: 'Albania / Kosovo', flags: ['al','xk'], status: 'current', members: ['TheDarkAngle','Arbrim','SemiShaman','-mili','Kozic','Sherif','AlphaEnemy','Zgjimi'] },
-    { type: 'single', name: 'England', flag: 'gb-eng', status: 'current', members: ['Bella','Jamie-','Viney','xSurvival_shamanx'] },
+    { type: 'combo', name: 'Albania / Kosovo', flags: ['al','xk'], status: 'current', members: ['TheDarkAngle','Sinegeiros','SemiShaman','MonsterIncarnate','Kozic', 'HalaMadrid','SilentWarrior','AlphaEnemy','ShooterXk', 'TACITUS'] },
+    { type: 'single', name: 'USA', flag: 'us', status: 'current', members: ['IYaoi-Wear','SoulTaker'] },
+    { type: 'single', name: 'Costa Rica', flag: 'cr', status: 'current', members: ['SpeedHunter'] },
+    { type: 'single', name: 'England', flag: 'gb-eng', status: 'current', members: ['Fried_Rice','Jamie-','Viney','xSurvival_shamanx'] },
+    { type: 'single', name: 'France', flag: 'fr', status: 'current', members: ['Bananas', 'SylvesterStalone'] },
+    { type: 'single', name: 'Germany', flag: 'de', status: 'current', members: ['Remote', 'TACITUS'] },
     { type: 'single', name: 'Netherlands', flag: 'nl', status: 'current', members: ['Dominant','JonSnow','Sharp'] },
-    { type: 'single', name: 'Germany', flag: 'de', status: 'current', members: ['Babo','Remote'] },
-    { type: 'single', name: 'Portugal', flag: 'pt', status: 'current', members: ['Lekas','-Shockwave-'] },
-    { type: 'single', name: 'United States of America', flag: 'us', status: 'current', members: ['IYaoi-Wear','SoulTaker'] },
-    { type: 'single', name: 'Austria', flag: 'at', status: 'current', members: ['Bianca'] },
-    { type: 'single', name: 'Brazil', flag: 'br', status: 'current', members: ['Diablo'] },
-    { type: 'single', name: 'France', flag: 'fr', status: 'current', members: ['SylvesterStalone'] },
+    { type: 'single', name: 'Portugal', flag: 'pt', status: 'current', members: ['Lekas','-Shockwave-', 'Joao', 'Hugo'] },
+    { type: 'single', name: 'Switzerland', flag: 'ch', status: 'current', members: ['AlphaEnemy'] },
 
     // Alumni (were on SW)
-    { type: 'single', name: 'Pakistan', flag: 'pk', status: 'alumni', members: ['Shahzad'] },
+    { type: 'single', name: 'Austria', flag: 'at', status: 'alumni', members: ['Bianca'] },
+    { type: 'single', name: 'Brazil', flag: 'br', status: 'alumni', members: ['Diablo'] },
+    { type: 'single', name: 'Croatia', flag: 'hr', status: 'alumni', members: ['DragulaROB'] },
+    { type: 'single', name: 'Denmark', flag: 'dk', status: 'alumni', members: ['Rousfv'] },
+    { type: 'single', name: 'England', flag: 'gb-eng', status: 'alumni', members: ['SpiderPig'] },
+    { type: 'single', name: 'France', flag: 'fr', status: 'alumni', members: ['Incy'] },
+    { type: 'single', name: 'Germany', flag: 'de', status: 'alumni', members: ['Eric_Mal', 'Babo'] },
     { type: 'single', name: 'India', flag: 'in', status: 'alumni', members: ['BigBang','Abigail','Evolution','Sinisters'] },
+    { type: 'single', name: 'Italy', flag: 'it', status: 'alumni', members: ['Pain','MixJumpen', 'Famfrit'] },
     { type: 'single', name: 'Jordan', flag: 'jo', status: 'alumni', members: ['Samer-','RoyalPain'] },
     { type: 'single', name: 'Mexico', flag: 'mx', status: 'alumni', members: ['Fonsi'] },
-    { type: 'single', name: 'Italy', flag: 'it', status: 'alumni', members: ['Pain','MixJumpen'] },
-    { type: 'single', name: 'Germany', flag: 'de', status: 'alumni', members: ['Eric_Mal'] },
-    { type: 'single', name: 'Denmark', flag: 'dk', status: 'alumni', members: ['Rousfv'] },
+    { type: 'single', name: 'Pakistan', flag: 'pk', status: 'alumni', members: ['Shahzad'] },
   ];
 
   const CDN_PNG = (code, size=40) => `https://flagcdn.com/w${size}/${code}.png`;
